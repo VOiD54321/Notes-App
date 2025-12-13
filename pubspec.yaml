@@ -1,0 +1,8 @@
+dependencies:
+  flutter:
+    sdk: flutter
+
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  provider: ^6.0.5
+  uuid: ^4.2.1
