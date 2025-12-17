@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Offline Notes</title>
+<style>
+:root {
+  --bg: #020617;
+  --card: #111827;
+  --text: #e5e7eb;
+  --accent: #6366f1;
+}
+.light {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #020617;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui;
+  margin: 0;
+}
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 30px;
+}
+.card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+}
+button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.note {
+  margin-top: 15px;
+  padding: 15px;
+  background: #020617;
+  border-radius: 10px;
+}
+a {
+  color: #ef4444;
+  text-decoration: none;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle("light");
+}
+</script>
+</head>
+
+<body>
+<div class="container">
+
+<div class="top">
+  <h1>📝 Offline Notes</h1>
+  <div>
+    <button onclick="toggleTheme()">🌗 Theme</button>
+    <a href="/logout">Logout</a>
+  </div>
+</div>
+
+<div class="card">
+  <form method="POST" action="/add">
+    <input name="title" placeholder="Title" required>
+    <textarea name="content" placeholder="Write note..." required></textarea>
+    <button>Add</button>
+  </form>
+</div>
+
+<div class="card">
+  <form>
+    <input name="q" placeholder="Search notes...">
+  </form>
+</div>
+
+{% for note in notes %}
+<div class="note">
+  <form method="POST" action="/edit/{{ note.id }}">
+    <input name="title" value="{{ note.title }}">
+    <textarea name="content">{{ note.content }}</textarea>
+    <button>Save</button>
+    <a href="/delete/{{ note.id }}">Delete</a>
+  </form>
+</div>
+{% endfor %}
+
+</div>
+</body>
+</html>
